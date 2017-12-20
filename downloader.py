@@ -1,3 +1,7 @@
+"""Downloads all emails to a compressed pickle named emails.pickle.gz
+RAM usage varies based on the number of emails associated with the account,
+but I recorded 3.5 GB of usage.
+"""
 import imaplib
 import email
 import getpass
@@ -15,6 +19,10 @@ emails = []
 i = 0
 
 def parse_bytes(data):
+    """
+    Parses email data into a string readable by email.message_from_string.
+    Tries decoding utf-8, or cp1252 (Windows format) if that fails.
+    """
     try:
         return data.decode("utf-8")
     except UnicodeDecodeError:
